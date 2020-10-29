@@ -16,6 +16,7 @@ app.use(basicAuth);
 // api routes
 app.use('/users', require('./users/users.controller'));
 app.use('/opnsense', require('./opnsense/opnsense.controller'));
+app.use('/routers', require('./routers/routers.controller'));
 
 // global error handler
 app.use(errorHandler);

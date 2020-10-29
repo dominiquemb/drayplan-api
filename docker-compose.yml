@@ -1,0 +1,27 @@
+version: '3.7'
+services: 
+    postgres:
+        image: postgres
+        restart: always
+        environment: 
+            - DATABASE_HOST=127.0.0.1
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=cera  
+
+        ports: 
+            - "5432:5432"
+        volumes: 
+            - ./docker/docker_postgres_init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
+    
+    pgadmin:
+        image: dpage/pgadmin4
+        environment: 
+            PGADMIN_DEFAULT_EMAIL: "test@test.com"
+            PGADMIN_DEFAULT_PASSWORD: "secret"
+        volumes:
+            - ./docker/servers.json:/pgadmin4/servers.json
+        ports: 
+            - "8888:80"
+        depends_on: 
+            - postgres    
